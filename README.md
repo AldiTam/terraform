@@ -24,3 +24,5 @@ In this project we are going to:
 
 ## 1. Terraform Overview and Set up
 What is Terraform? Terraform is a powerful Infrastructure as Code (IaC) tool that allows you to build, change, and version infrastructure safely and easily. It can be used in conjunction with other IaC tools to create powerful and flexible infrastructure management solutions.  
+
+a
