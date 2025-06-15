@@ -1,9 +1,12 @@
 # terraform
 
 This project is based on https://courses.devopsdirective.com/terraform-beginner-to-pro/lessons/00-introduction/01-main
+https://github.com/sidpalas/devops-directive-terraform-course
 
 ## 📖 Description
-1. Terraform Overview and Set Up: Understand Terraform as a tool for building, changing, and versioning infrastructure safely and efficiently.
+In this project we are going to:
+
+1. Terraform Overview and Set Up
 
 2. Basic Terraform Usage: Explore the basics of using Terraform with AWS.
 
@@ -18,3 +21,6 @@ This project is based on https://courses.devopsdirective.com/terraform-beginner-
 7. Testing Infrastructure as Code Configurations: Discover techniques for testing your Infrastructure as Code configurations to ensure reliability and stability.
 
 8. Developer Workflows and Automation: Explore various developer workflows and learn how to automate deployments using tools like GitHub Actions.
+
+## 1. Terraform Overview and Set up
+What is Terraform? Terraform is a powerful Infrastructure as Code (IaC) tool that allows you to build, change, and version infrastructure safely and easily. It can be used in conjunction with other IaC tools to create powerful and flexible infrastructure management solutions.  
