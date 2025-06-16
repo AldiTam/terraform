@@ -25,4 +25,15 @@ In this project we are going to:
 ## 1. Terraform Overview and Set up
 What is Terraform? Terraform is a powerful Infrastructure as Code (IaC) tool that allows you to build, change, and version infrastructure safely and easily. It can be used in conjunction with other IaC tools to create powerful and flexible infrastructure management solutions.  
 
-a
+Terraform + Configuration Management Tools (e.g., Ansible):
+
+Terraform provisions virtual machines
+Ansible installs and configures dependencies inside virtual machines.
+Terraform + Templating Tools (e.g., Packer):
+
+Terraform provisions servers.
+Packer builds the image from which virtual machines are created.
+Terraform + Orchestration Tools (e.g., Kubernetes):
+
+Terraform provisions Kubernetes clusters.
+Kubernetes defines how the application is deployed and managed on the cloud resources.
