@@ -23,7 +23,7 @@ In this project we are going to:
 8. Developer Workflows and Automation: Explore various developer workflows and learn how to automate deployments using tools like GitHub Actions.
 
 ## 1. Terraform Overview and Set up
-What is Terraform? Terraform is a powerful Infrastructure as Code (IaC) tool that allows you to build, change, and version infrastructure safely and easily. It can be used in conjunction with other IaC tools to create powerful and flexible infrastructure management solutions.  
+What is Terraform? Terraform is a powerful Infrastructure as Code (IaC) tool that allows you to build, change, and version infrastructure safely and easily. It can be used in conjunction with other IaC tools to create powerful and flexible infrastructure management solutions.
 
 Terraform + Configuration Management Tools (e.g., Ansible):
 
@@ -38,6 +38,13 @@ Terraform + Orchestration Tools (e.g., Kubernetes):
 Terraform provisions Kubernetes clusters.
 Kubernetes defines how the application is deployed and managed on the cloud resources.
 
+## 2. Basic Terraform Usage: Explore the basics of using Terraform with AWS.
+
+
 Description
 
 ## Installation
+
+## Softwares
+
+##
