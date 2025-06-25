@@ -68,12 +68,13 @@ Initialize Terraform in the directory containing main.tf by running:
 This sets up the backend and state storage. Next, run
 ```terraform plan
 ```
-to view the changes Terraform will make to your infrastructure.
-```Run terraform apply
+to view the changes Terraform will make to your infrastructure. Run
+``` terraform apply
 ```
 to create the specified resources. Confirm the action when prompted.
 To clean up resources and avoid unnecessary costs, run
-```terraform destroy```
+```terraform destroy
+```
 
 
 Description
