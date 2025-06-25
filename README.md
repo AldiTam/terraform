@@ -63,10 +63,10 @@ resource "aws_instance" "example" {
 ```
 
 Initialize Terraform in the directory containing main.tf by running:
-``` terraform init
+```bash terraform init
 ```
 This sets up the backend and state storage. Next, run
-``` terraform plan
+```bash terraform plan
 ```
 to view the changes Terraform will make to your infrastructure. Run
 ``` terraform apply
