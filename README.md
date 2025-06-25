@@ -42,7 +42,7 @@ Kubernetes defines how the application is deployed and managed on the cloud reso
 
 1. Create a file named main.tf with the following content:
 
-```python
+```
 terraform {
   required_providers {
     aws = {
@@ -60,14 +60,17 @@ resource "aws_instance" "example" {
   ami           = "ami-092ff8e60e2d51e19" # Ubuntu 20.04 LTS // us-east-1
   instance_type = "t2.micro"
 }
-```
+
 
 Initialize Terraform in the directory containing main.tf by running:
-terraform init
-. This sets up the backend and state storage.
-Run terraform plan to view the changes Terraform will make to your infrastructure.
-Run terraform apply to create the specified resources. Confirm the action when prompted.
-To clean up resources and avoid unnecessary costs, run terraform destroy and confirm the action when prompted.
+```terraform init
+This sets up the backend and state storage. Next, run
+```terraform plan
+to view the changes Terraform will make to your infrastructure.
+```Run terraform apply
+to create the specified resources. Confirm the action when prompted.
+To clean up resources and avoid unnecessary costs, run
+```terraform destroy
 
 
 Description
