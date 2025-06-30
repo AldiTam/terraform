@@ -11,6 +11,10 @@ AWS Terraform provider documentation: https://registry.terraform.io/providers/ha
 1) create non-root AWS user
 2) Add the necessary IAM roles (e.g. AmazonEC2FullAccess)
 3) Save Access key + secret key (or use AWS CLI `aws configure` -- https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html)
+4) Save key
+5) 
+
+
 
 ## Hello World
 
