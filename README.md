@@ -38,8 +38,6 @@ Terraform + Orchestration Tools (e.g., Kubernetes):
 Terraform provisions Kubernetes clusters.
 Kubernetes defines how the application is deployed and managed on the cloud resources.
 
-## 2. Basic Terraform Usage: Explore the basics of using Terraform with AWS.
-
 1. Create a file named main.tf with the following content:
 
 ```
@@ -53,11 +51,11 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region = "eu-central-1"
 }
 
 resource "aws_instance" "example" {
-  ami           = "ami-092ff8e60e2d51e19" # Ubuntu 20.04 LTS // us-east-1
+  ami           = "ami-0229b8f55e5178b65" # Ubuntu 20.04 LTS // eu-central-1
   instance_type = "t2.micro"
 }
 ```
@@ -80,8 +78,24 @@ To clean up resources and avoid unnecessary costs, run
 terraform destroy
 ```
 
+By following these steps, we have set up Terraform, authenticated with AWS, and created a basic configuration to provision a virtual machine on AWS!
 
-Description
+## 2. Basic Terraform Usage
+### The General Sequence of Terraform Commands:
+
+1. **terraform init **: Initializes project
+2. **terraform plan **: Checks the configuration against the current state and generates a plan of what will happen
+3. **terraform apply **: Applies the plan to create or update the infrastructure
+4. **terraform destroy **: Removes resources when no longer needed.
+
+### Storing the State File:
+- Local Backend: The state file is stored within the working directory of the project
+
+- Remote Backend: The state file is stored in a remote object store or a managed service like Terraform Cloud
+
+## 3. 
+
+
 
 ## Installation
 
