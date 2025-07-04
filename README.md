@@ -1,4 +1,4 @@
-# terraform
+# Infrastructure as Code with Terraform
 
 This project is based on https://courses.devopsdirective.com/terraform-beginner-to-pro/lessons/00-introduction/01-main
 https://github.com/sidpalas/devops-directive-terraform-course
@@ -83,15 +83,29 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 ## 2. Basic Terraform Usage
 ### The General Sequence of Terraform Commands:
 
-1. **terraform init **: Initializes project
-2. **terraform plan **: Checks the configuration against the current state and generates a plan of what will happen
-3. **terraform apply **: Applies the plan to create or update the infrastructure
-4. **terraform destroy **: Removes resources when no longer needed.
+1. **terraform init**: Initializes project
+2. **terraform plan**: Checks the configuration against the current state and generates a plan of what will happen
+3. **terraform apply**: Applies the plan to create or update the infrastructure
+4. **terraform destroy **: Removes resources when no longer needed. Use with caution as it permanently deletes resources.
 
 ### Storing the State File:
 - Local Backend: The state file is stored within the working directory of the project
 
 - Remote Backend: The state file is stored in a remote object store or a managed service like Terraform Cloud
+
+### Terraform plan Command
+- Compares the desired state (Terraform configuration) with the actual state (Terraform state file)
+- Identifies any discrepancies between the two states
+- Outputs the differences and the actions needed to reconcile the states
+
+### Terraform apply Command
+- Executes the actions identified in the Terraform Plan command
+- Creates, modifies, or deletes resources as needed to match the desired state
+- Updates the Terraform state file to reflect the changes
+
+### Terraform destroy Command
+- Removes all resources associated with the Terraform configuration
+- Use with caution, as it permanently deletes resources
 
 ## 3. 
 
