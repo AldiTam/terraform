@@ -116,7 +116,9 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 5. Re-run '''terraform init''' to import the state into the new remote backend
 
 ## 3. Variables and Outputs
+1. Set up terraform backend
 
+2. 
 
 
 
