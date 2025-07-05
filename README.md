@@ -107,7 +107,16 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 - Removes all resources associated with the Terraform configuration
 - Use with caution, as it permanently deletes resources
 
-## 3. 
+### Bootstrapping Process for AWS S3 Backend
+
+1. Create a Terraform configuration without a remote backend (defaults to a local backend)
+2. Define the necessary AWS resources: S3 bucket and DynamoDB table with a hash key named "LockID"
+3. Run '''terraform apply''' to create the S3 bucket and DynamoDB table
+4. Update the Terraform configuration to use the remote backend with the S3 bucket and DynamoDB table
+5. Re-run '''terraform init''' to import the state into the new remote backend
+
+## 3. Variables and Outputs
+
 
 
 
