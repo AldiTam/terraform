@@ -120,6 +120,10 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 
 2. 
 
+3.  
+
+4.
+
 
 ## Installation
 
