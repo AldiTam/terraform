@@ -173,6 +173,10 @@ resource "aws_dynamodb_table" "terraform_locks" {
   }
 } 
 '''
+### Crete Simple Web Application Architecture
+1. Set up your Terraform Backend
+
+
 
 ## 3. Variables and Outputs
 1. Set up terraform backend
