@@ -86,7 +86,7 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 1. **terraform init**: Initializes project
 2. **terraform plan**: Checks the configuration against the current state and generates a plan of what will happen
 3. **terraform apply**: Applies the plan to create or update the infrastructure
-4. **terraform destroy **: Removes resources when no longer needed. Use with caution as it permanently deletes resources.
+4. **terraform destroy**: Removes resources when no longer needed. Use with caution as it permanently deletes resources.
 
 ### Storing the State File:
 - Local Backend: The state file is stored within the working directory of the project
@@ -114,6 +114,65 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 3. Run '''terraform apply''' to create the S3 bucket and DynamoDB table
 4. Update the Terraform configuration to use the remote backend with the S3 bucket and DynamoDB table
 5. Re-run '''terraform init''' to import the state into the new remote backend
+
+'''
+terraform {
+  #############################################################
+  ## AFTER RUNNING TERRAFORM APPLY (WITH LOCAL BACKEND)
+  ## YOU WILL UNCOMMENT THIS CODE THEN RERUN TERRAFORM INIT
+  ## TO SWITCH FROM LOCAL BACKEND TO REMOTE AWS BACKEND
+  #############################################################
+  # backend "s3" {
+  #   bucket         = "devops-directive-tf-state" # REPLACE WITH YOUR BUCKET NAME
+  #   key            = "03-basics/import-bootstrap/terraform.tfstate"
+  #   region         = "us-east-1"
+  #   dynamodb_table = "terraform-state-locking"
+  #   encrypt        = true
+  # }
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_s3_bucket" "terraform_state" {
+  bucket        = "devops-directive-tf-state" # REPLACE WITH YOUR BUCKET NAME
+  force_destroy = true
+}
+
+resource "aws_s3_bucket_versioning" "terraform_bucket_versioning" {
+  bucket = aws_s3_bucket.terraform_state.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state_crypto_conf" {
+  bucket        = aws_s3_bucket.terraform_state.bucket
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_dynamodb_table" "terraform_locks" {
+  name         = "terraform-state-locking"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "LockID"
+  attribute {
+    name = "LockID"
+    type = "S"
+  }
+} 
+'''
 
 ## 3. Variables and Outputs
 1. Set up terraform backend
