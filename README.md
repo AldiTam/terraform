@@ -3,26 +3,53 @@
 This project is based on https://courses.devopsdirective.com/terraform-beginner-to-pro/lessons/00-introduction/01-main
 https://github.com/sidpalas/devops-directive-terraform-course
 
-## 📖 Description
+## Description
 In this project we are going to:
 
-1. Terraform Overview and Set Up
+1. Infrastructure as Code
 
-2. Basic Terraform Usage: Explore the basics of using Terraform with AWS.
+2. Terraform Overview and Set Up
 
-3. Variables and Outputs: Dive into using variables and outputs in Terraform configurations.
+3. Basic Terraform Usage: Explore the basics of using Terraform with AWS.
 
-4. HashiCorp Configuration Language (HCL) Features: Learn about HCL, the language used by Terraform, and discover its powerful features for managing cloud infrastructure.
+4. Variables and Outputs in Terraform configurations.
 
-5. Organizing Projects and Reusable Modules: Learn best practices for organizing Terraform projects and creating reusable modules for extensibility and applicability across different environments.
+5. HashiCorp Configuration Language (HCL) Features: Learn about HCL, the language used by Terraform, and discover its powerful features for managing cloud infrastructure.
 
-6. Managing Multiple Environments: Understand how to manage multiple environments, such as staging, development, and production, using Terraform.
+6. Organizing Projects and Reusable Modules: Learn best practices for organizing Terraform projects and creating reusable modules for extensibility and applicability across different environments.
 
-7. Testing Infrastructure as Code Configurations: Discover techniques for testing your Infrastructure as Code configurations to ensure reliability and stability.
+7. Managing Multiple Environments: Understand how to manage multiple environments, such as staging, development, and production, using Terraform.
 
-8. Developer Workflows and Automation: Explore various developer workflows and learn how to automate deployments using tools like GitHub Actions.
+8. Testing Infrastructure as Code Configurations: Discover techniques for testing your Infrastructure as Code configurations to ensure reliability and stability.
 
-## 1. Terraform Overview and Set up
+9. Developer Workflows and Automation: Explore various developer workflows and learn how to automate deployments using tools like GitHub Actions.
+
+## 1. Infrastructure as Code
+
+### Infrastructure as Code (IaC) Overview
+
+Three Main Approaches for Provisioning Cloud Resources:
+
+Cloud Console: A graphical user interface provided by cloud providers, allowing users to interact with and manage cloud services.
+
+API or Command-Line Interface: A method of interacting with cloud services programmatically, allowing for more efficient and automated management.
+
+Infrastructure as Code: Defining your entire infrastructure within your codebase, offering better control, visibility, and consistency across environments.
+
+
+### Categories of Infrastructure as Code Tools:
+
+1. Ad-hoc scripts: Basic scripts that make API calls to provision infrastructure resources (e.g., shell scripts).
+
+2. Configuration management tools: Tools like Ansible, Puppet, and Chef, designed to manage software and infrastructure configuration.
+
+3. Server templating tools: Tools for building server templates, such as Amazon Machine Images (AMIs) or virtual machine images.
+
+4. Orchestration tools: Tools like Kubernetes, which focus on deploying applications and managing containers.
+
+5. Provisioning tools: Tools like Terraform, which focus on provisioning cloud resources using a declarative approach.
+
+## 2. Terraform Overview and Set up
 What is Terraform? Terraform is a powerful Infrastructure as Code (IaC) tool that allows you to build, change, and version infrastructure safely and easily. It can be used in conjunction with other IaC tools to create powerful and flexible infrastructure management solutions.
 
 Terraform + Configuration Management Tools (e.g., Ansible):
@@ -80,7 +107,7 @@ terraform destroy
 
 By following these steps, we have set up Terraform, authenticated with AWS, and created a basic configuration to provision a virtual machine on AWS!
 
-## 2. Basic Terraform Usage
+## 3. Basic Terraform Usage
 ### The General Sequence of Terraform Commands:
 
 1. **terraform init**: Initializes project
@@ -178,7 +205,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
 
 
 
-## 3. Variables and Outputs
+## 4. Variables and Outputs
 1. Set up terraform backend
 
 2. 
