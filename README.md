@@ -24,6 +24,8 @@ In this project we are going to:
 
 9. Developer Workflows and Automation: Explore various developer workflows and learn how to automate deployments using tools like GitHub Actions.
 
+*All correspoing **main.tf** files can be found in each subfolders.
+
 ## 1. Infrastructure as Code
 
 ### Infrastructure as Code (IaC) Overview
