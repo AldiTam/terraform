@@ -33,7 +33,7 @@ resource "aws_instance" "instance_1" {
 }
 
 resource "aws_instance" "instance_2" {
-  ami             = "ami-011899242bb902164" # Ubuntu 20.04 LTS // us-east-1
+  ami             = "ami-0229b8f55e5178b65" # Ubuntu 20.04 LTS // eu-central-1
   instance_type   = "t2.micro"
   security_groups = [aws_security_group.instances.name]
   user_data       = <<-EOF
@@ -187,12 +187,12 @@ resource "aws_lb" "load_balancer" {
 }
 
 resource "aws_route53_zone" "primary" {
-  name = "devopsdeployed.com"
+  name = "learneveryday.duckdns.org"
 }
 
 resource "aws_route53_record" "root" {
   zone_id = aws_route53_zone.primary.zone_id
-  name    = "devopsdeployed.com"
+  name    = "learneveryday.duckdns.org"
   type    = "A"
 
   alias {
@@ -211,10 +211,10 @@ resource "aws_db_instance" "db_instance" {
   auto_minor_version_upgrade = true
   storage_type               = "standard"
   engine                     = "postgres"
-  engine_version             = "12"
+  engine_version             = "11"
   instance_class             = "db.t2.micro"
   name                       = "mydb"
-  username                   = "foo"
-  password                   = "foobarbaz"
+  username                   = "food"
+  password                   = "foodbarbaz"
   skip_final_snapshot        = true
 }

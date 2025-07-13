@@ -144,6 +144,11 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 4. Update the Terraform configuration to use the remote backend with the S3 bucket and DynamoDB table
 5. Re-run '''terraform init''' to import the state into the new remote backend
 
+Note: 
+* S3 Bucket is used as the storage, wheras DynamoDB is used for locking to prevent multiple users running **terraform apply**
+* Create a local backend first, before we can migrate to S3 Backend
+ 
+
 '''
 terraform {
   #############################################################
@@ -202,7 +207,7 @@ resource "aws_dynamodb_table" "terraform_locks" {
   }
 } 
 '''
-### Crete Simple Web Application Architecture
+### Crete Simple Web Application Architecture on AWS
 1. Set up your Terraform Backend
 
 
