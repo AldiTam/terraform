@@ -156,13 +156,12 @@ terraform {
   ## YOU WILL UNCOMMENT THIS CODE THEN RERUN TERRAFORM INIT
   ## TO SWITCH FROM LOCAL BACKEND TO REMOTE AWS BACKEND
   #############################################################
-  # backend "s3" {
-  #   bucket         = "devops-directive-tf-state" # REPLACE WITH YOUR BUCKET NAME
-  #   key            = "03-basics/import-bootstrap/terraform.tfstate"
-  #   region         = "us-east-1"
-  #   dynamodb_table = "terraform-state-locking"
-  #   encrypt        = true
-  # }
+  backend "s3" {
+    bucket         = "aldi-tf-state" # REPLACE WITH YOUR BUCKET NAME
+    key            = "03-basics/import-bootstrap/terraform.tfstate"
+    region         = "eu-central-1"
+    dynamodb_table = "terraform-state-locking"
+    encrypt        = true
 
   required_providers {
     aws = {
@@ -208,8 +207,66 @@ resource "aws_dynamodb_table" "terraform_locks" {
 } 
 '''
 ### Crete Simple Web Application Architecture on AWS
-1. Set up your Terraform Backend
+1. Set up your Terraform Backend in S3 Bucket + DynamoDB.
 
+2. Create a **main.tf** file and configure the backend definition:
+
+The backend configuration goes within the top level **terraform {}** block.
+'''
+terraform {
+  # Assumes s3 bucket and dynamo DB table already set up
+  # See /code/03-basics/aws-backend
+  backend "s3" {
+    bucket         = "aldi-tf-state"
+    key            = "03-basics/web-app/terraform.tfstate"
+    region         = "eu-central-1"
+    dynamodb_table = "terraform-state-locking"
+    encrypt        = true
+  }
+}
+'''
+3. Configure the AWS provider:
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = "eu-central-1"
+}
+
+4. Create EC2 Instances:
+The following configuration defines two virtual machines with a basic python webserver that will be executed upon startup (by placing the commands within the user_data block).
+
+We also need to define a security group so that we will be able to allow inbound traffic to the instances.
+'''
+resource "aws_instance" "instance_1" {
+  ami             = "ami-0229b8f55e5178b65" # Ubuntu 20.04 LTS // eu-central-1
+  instance_type   = "t2.micro"
+  security_groups = [aws_security_group.instances.name]
+  user_data       = <<-EOF
+              #!/bin/bash
+              echo "Hello, World 1" > index.html
+              python3 -m http.server 8080 &
+              EOF
+}
+
+resource "aws_instance" "instance_2" {
+  ami             = "ami-0229b8f55e5178b65" # Ubuntu 20.04 LTS // eu-central-1
+  instance_type   = "t2.micro"
+  security_groups = [aws_security_group.instances.name]
+  user_data       = <<-EOF
+              #!/bin/bash
+              echo "Hello, World 2" > index.html
+              python3 -m http.server 8080 &
+              EOF
+}
+'''
+
+5. Create an S3 Bucket:
 
 
 ## 4. Variables and Outputs
