@@ -140,24 +140,23 @@ By following these steps, we have set up Terraform, authenticated with AWS, and 
 
 1. Create a Terraform configuration without a remote backend (defaults to a local backend)
 2. Define the necessary AWS resources: S3 bucket and DynamoDB table with a hash key named "LockID"
-3. Run '''terraform apply''' to create the S3 bucket and DynamoDB table
+3. Run ```terraform apply``` to create the S3 bucket and DynamoDB table
 4. Update the Terraform configuration to use the remote backend with the S3 bucket and DynamoDB table
-5. Re-run '''terraform init''' to import the state into the new remote backend
+5. Re-run ```terraform init``` to import the state into the new remote backend
 
 Note: 
 * S3 Bucket is used as the storage, wheras DynamoDB is used for locking to prevent multiple users running **terraform apply**
 * Create a local backend first, before we can migrate to S3 Backend
  
-
-'''
+```
 terraform {
   #############################################################
-  ## AFTER RUNNING TERRAFORM APPLY (WITH LOCAL BACKEND)
-  ## YOU WILL UNCOMMENT THIS CODE THEN RERUN TERRAFORM INIT
-  ## TO SWITCH FROM LOCAL BACKEND TO REMOTE AWS BACKEND
+  ##AFTER RUNNING TERRAFORM APPLY (WITH LOCAL BACKEND)
+  ##YOU WILL UNCOMMENT THIS CODE THEN RERUN TERRAFORM INIT
+  ##TO SWITCH FROM LOCAL BACKEND TO REMOTE AWS BACKEND
   #############################################################
   backend "s3" {
-    bucket         = "aldi-tf-state" # REPLACE WITH YOUR BUCKET NAME
+    bucket         = "aldi-tf-state"
     key            = "03-basics/import-bootstrap/terraform.tfstate"
     region         = "eu-central-1"
     dynamodb_table = "terraform-state-locking"
@@ -205,14 +204,14 @@ resource "aws_dynamodb_table" "terraform_locks" {
     type = "S"
   }
 } 
-'''
+```
 ### Crete Simple Web Application Architecture on AWS
 1. Set up your Terraform Backend in S3 Bucket + DynamoDB.
 
 2. Create a **main.tf** file and configure the backend definition:
 
 The backend configuration goes within the top level **terraform {}** block.
-'''
+```
 terraform {
   # Assumes s3 bucket and dynamo DB table already set up
   # See /code/03-basics/aws-backend
@@ -224,7 +223,7 @@ terraform {
     encrypt        = true
   }
 }
-'''
+```
 3. Configure the AWS provider:
   required_providers {
     aws = {
@@ -242,7 +241,7 @@ provider "aws" {
 The following configuration defines two virtual machines with a basic python webserver that will be executed upon startup (by placing the commands within the user_data block).
 
 We also need to define a security group so that we will be able to allow inbound traffic to the instances.
-'''
+```
 resource "aws_instance" "instance_1" {
   ami             = "ami-0229b8f55e5178b65" # Ubuntu 20.04 LTS // eu-central-1
   instance_type   = "t2.micro"
@@ -264,10 +263,10 @@ resource "aws_instance" "instance_2" {
               python3 -m http.server 8080 &
               EOF
 }
-'''
+```
 
 5. Create an S3 Bucket:
-'''
+```
 resource "aws_s3_bucket" "bucket" {
   bucket_prefix = "aldi-web-app-data"
   force_destroy = true
@@ -288,7 +287,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_crypto_con
     }
   }
 }
-'''
+```
 
 6. Reference Default VPC and Subnet
 To keep things simple, this configuration is deployed into a default VPC and Subnet.
@@ -303,7 +302,7 @@ data "aws_subnet_ids" "default_subnet" {
 }
 
 7. Define Security Groups and Rules
-'''
+```
 resource "aws_security_group_rule" "allow_http_inbound" {
   type              = "ingress"
   security_group_id = aws_security_group.instances.id
@@ -313,7 +312,7 @@ resource "aws_security_group_rule" "allow_http_inbound" {
   protocol    = "tcp"
   cidr_blocks = ["0.0.0.0/0"]
 }
-'''
+```
 
 8. Set Up Load Balancer
 We have two virtual machines and want to split traffic between them. We can do this with a load balancer. We configure the load balancer behavior and attach the two EC2 instances to it.
@@ -433,13 +432,10 @@ Access the load balancer's DNS name or your domain to check if the instances are
 Run **terraform destroy** to clean up the resources.
 
 ## 4. Variables and Outputs
-1. Set up terraform backend
 
-2. 
+### Terraform Variables and Outputs Application
+In this section, we will demonstrate how to use Terraform variables and outputs in the sample web application configuration shown earlier in the course to make it more flexible and generalizable.
 
-3.  
-
-4.
 
 
 ## Installation
