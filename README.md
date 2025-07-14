@@ -436,10 +436,66 @@ Run **terraform destroy** to clean up the resources.
 ### Terraform Variables and Outputs Application
 In this section, we will demonstrate how to use Terraform variables and outputs in the sample web application configuration shown earlier in the course to make it more flexible and generalizable.
 
+1. **Local Variable**:  Declare local variables in your main.tf file to define values that are scoped within the project and reused throughout the configuration (but cannot be passed in at runtime).
 
+```
+locals {
+  example_variable = "example_value"
+}
 
-## Installation
+2. **Input Variables:** Define input variables in a separate `variables.tf` file or within your `main.tf` file. These variables allow you to configure and change values at runtime.
 
-## Softwares
+For example, we can define the following variables associated with our EC2 instacnes:
 
-##
+variable "ami" {
+  description = "Amazon machine image to use for ec2 instance"
+  type        = string
+  default     = "ami-0229b8f55e5178b65" # Ubuntu 20.04 LTS // eu-central-1
+}
+
+variable "instance_type" {
+  description = "ec2 instance type"
+  type        = string
+  default     = "t2.micro"
+}
+```
+After defining the variables, we then reference them within the resource configuration using **var.VARIABLE_NAME**
+```
+resource "aws_instance" "instance_1" {
+  ami             = var.ami
+  instance_type   = var.instance_type
+  security_groups = [aws_security_group.instances.name]
+  user_data       = <<-EOF
+              #!/bin/bash
+              echo "Hello, World 1" > index.html
+              python3 -m http.server 8080 &
+              EOF
+}
+```
+3. **TFVARS Files**: Create a terraform.tfvars file to store non-sensitive values for your input variables:
+```
+bucket_prefix = "devops-directive-web-app-data"
+domain        = "devopsdeployed.com"
+db_name       = "mydb"
+db_user       = "user"
+# For sensitive variables, pass them at runtime instead of storing them in the .tfvars file.
+# db_pass = "password"
+```
+
+4. **Outputs**: Add output variables to your configuration to provide access to important information such as IP addresses:
+```
+output "instance_1_ip_addr" {
+  value = aws_instance.instance_1.public_ip
+}
+```
+5. **Deploy Configuration**: Perform the usual terraform init, terraform plan, and terraform apply steps to provision the infrastructure.
+```
+terraform apply -var "db_user=my_user" -var "db_pass=something_super_secure"
+```
+By using variables in this way, we can deploy multiple copies of a similar but slightly different web application.
+
+Additionally, we can create staging and production environments simply by configuring different variable values within the terraform.tfvars file.
+
+Remember not to store sensitive values like passwords in .tfvars file; instead, pass them at runtime or use an external secrets manager.
+
+## 5: Additional HCL Features
