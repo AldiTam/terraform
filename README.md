@@ -498,4 +498,84 @@ Additionally, we can create staging and production environments simply by config
 
 Remember not to store sensitive values like passwords in .tfvars file; instead, pass them at runtime or use an external secrets manager.
 
-## 5: Additional HCL Features
+## 5. Additional HCL Features
+
+### Expressions, Operators, and Functions
+
+Refer to the Terraform documentation for a complete list and usage examples.
+
+Some examples include:
+
+* Template strings: Similar to JavaScript, you can use template strings with curly braces to reference variables within a string.
+* Operators: Arithmetic and logical operators like multiplication, division, and checking equality are available.
+* Conditionals: Ternary syntax can be used for conditional expressions.
+* For loops: for loops can be used to loop over a list of configurations.
+* Splat expressions: This expands values in a list.
++ Functions: Math functions, date and time functions, and hash/crypto functions can be used in your code.
+
+### Meta Arguments
+
+Terraform provides various meta arguments to control the behavior of resources, such as **depends_on**, **count**, **for_each**, and **lifecycle**.
+
+* depends_on: This meta argument is used when one resource implicitly depends on another, but there's no direct connection within the config. For example, if an instance needs access to an S3 bucket, you need to provision the role policy first.
+
+```resource "aws_instance" "example" {
+
+  # ...
+
+  depends_on = [aws_iam_role_policy.example]
+}
+```
+* count: Create multiple copies of a resource. This is useful when you have nearly identical resources. 
+```
+resource "aws_instance" "example" {
+
+  # ...
+
+  count = 4
+  tags = {
+    Name = "server-${count.index + 1}"
+  }
+}
+
+### for_each
+
+`for_each` is similar to count, but it provides more control over each resource. It allows you to loop through an iterable and create resources based on its values.
+
+```json
+locals {
+  subnets = ["subnet-abc123", "subnet-def456"]
+}
+
+resource "aws_instance" "example" {
+
+  # ...
+
+  for_each = toset(local.subnets)
+  subnet_id = each.value
+}
+```
+
+* lifecycle: The lifecycle meta argument is used to specify the order in which Terraform takes actions, like creating resources before destroying them, or ignoring changes.
+
+```
+resource "aws_instance" "example" {
+
+  # ...
+
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes = [tags]
+    prevent_destroy = true
+  }
+}
+```
+* Provisioners: Provisioners allow you to perform actions locally or on remote machines. You can use **file**, **local-exec**, or **remote-exec** provisioners, or use vendor-specific provisioners like the Ansible provisioner
+
+## 6. Terraform modules
+Terraform modules help make the code reuseable, and external modules can be used to provision pre-configured resources.
+
+### What is a Module?
+A module is a container for multiple resources defined within your Terraform configuration, bundled in a reusable fashion.
+
+Modules consist of a collection of **.tf** or **.tf.json** files kept together within a single directory. We have already been using a default module in previous lessons.
